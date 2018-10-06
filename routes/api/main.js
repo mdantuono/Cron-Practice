@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mainWorker = require('../../workers/mainWorker');
-const adderWorker = require('../../workers/adderWorker');
+const addRandomNumbers = require('../../workers/adderWorker');
 
 router.get('/', (req, res) => res.json({ status: "success" }));
 
@@ -21,9 +21,9 @@ router.get('/stop', (req, res) => {
   res.json({ status: "worker stopped" });
 });
 
-router.get('/adder', (req, res) => {
-  adderWorker.start();
-  res.json({ status: "total logged to console"})
-})
+router.get('/adder/:num', (req, res) => {
+  addRandomNumbers(parseInt(req.params.num, 10));
+  res.json({ status: "total logged to console"});
+});
 
 module.exports = router;
